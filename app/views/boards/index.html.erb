@@ -1,10 +1,18 @@
 <h1>MY Boards</h1>
 <hr />
 <hr />
-<h2>Welcome <%= current_user.email %></h2>
+<h2>Welcome <%= current_user.first_name %></h2>
 <%= link_to "New Board", new_board_path %>
 <hr />
-<%= @boards.each do |board| %>
+<% @boards.each do |board| %>
+   <div>
     <h2><%= board.name %></h2>
-    <%end%>
-<%= button_to "Log Out", destroy_user_session_path, method: :delete %>
+        
+    <% board.lists.each do |list| %>
+    <h4><%= link_to "#{board.list.name}", list_path(list) %></h4>
+      <br>
+    <% end %>
+    <h4><%= link_to "New List", new_board_list_path(board) %></h4>
+    <br>
+    </div>
+<%end%>

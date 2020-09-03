@@ -2,11 +2,11 @@ class ListsController < ApplicationController
   before_action :set_list, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @lists = current_user.boards.lists
+    @lists = current_user.boards.lists.all
   end
 
   def new
-    @list = List.new
+    @list = current_user.boards.lists.new
   end
 
   def create
@@ -16,7 +16,7 @@ class ListsController < ApplicationController
     flash[:success] = "List Created"
       redirect_to lists_path
     else
-      flash[:error] = "error #{@sword.errors.full_messages.join('\n')}"
+      flash[:error] = "error #{@list.errors.full_messages.join('\n')}"
       render :new
     end
   end
