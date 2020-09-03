@@ -9,10 +9,10 @@
     <h2><%= board.name %></h2>
         
     <% board.lists.each do |list| %>
-    <h4><%= link_to "#{board.list.name}", list_path(list) %></h4>
+    <h4><%= list.name %></h4>
       <br>
     <% end %>
-    <h4><%= link_to "New List", new_board_list_path(board) %></h4>
+
     <br>
     </div>
 <%end%>

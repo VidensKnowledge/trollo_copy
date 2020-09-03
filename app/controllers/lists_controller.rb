@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+  # before_action :get_board
   before_action :set_list, only: [ :show, :edit, :update, :destroy ]
 
   def index
@@ -6,15 +7,16 @@ class ListsController < ApplicationController
   end
 
   def new
-    @list = current_user.boards.lists.new
+  # binding.pry
+    @list = current_user.boards.list.new
   end
 
   def create
-    @list = current_user.boards.lists.new(sword_params)
+    @list = current_user.boards.lists.new(list_params)
 
     if @list.save
     flash[:success] = "List Created"
-      redirect_to lists_path
+      redirect_to board_list_path
     else
       flash[:error] = "error #{@list.errors.full_messages.join('\n')}"
       render :new
@@ -41,6 +43,10 @@ class ListsController < ApplicationController
   end
 
   private
+
+  # def get_board
+  # current_user.board(params[:id])
+  # end
 
   def set_list
     @list = current_user.boards.lists.find(params[:id])
